@@ -1,0 +1,9 @@
+notebooks/wip_scratch.ipynb
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pytest_cache/
+.pytest_cache/
+.ipynb_checkpoints/
+.venv/
