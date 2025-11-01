@@ -1,8 +1,13 @@
+#pragma once
 #include <iostream>
 #include <vector>
 #include <string>
 #include <fstream>
 #include <sstream>
+#include <algorithm>
+#include <random>
+#include <chrono>
+#include "alias.h"
 
 
 // Split line into vector of strings on delimiter
@@ -32,3 +37,4 @@ void ReadCSV(std::vector<std::string>& labels, std::vector<std::vector<T>>& data
         data.push_back(dataRow);
     }
 }
+
