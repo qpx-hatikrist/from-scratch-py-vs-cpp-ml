@@ -136,5 +136,3 @@ double CalculateR2(const matrix<T>& realMat, const matrix<T>& predictMat) {
     }
     return 1.0d - squarePred/squareAvg;
 }
-
-
