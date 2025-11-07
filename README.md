@@ -61,12 +61,12 @@ Within the project we **deliberately implement by hand** both the main metrics a
 
 **Metrics computed via scikit-learn::**
 
-mean_pinball_loss() — mean pinball loss (computed via sklearn.metrics.mean_pinball_loss for consistency with the baseline).
+mean_pinball_loss() — mean pinball loss (computed via `sklearn.metrics.mean_pinball_loss` for consistency with the baseline).
 
 **Preprocessing:**
 
 - `StandardScaler` — custom implementation of feature standardization (estimating mean and standard deviation on the train part and applying it to train/test);
-- `train_test_split` — custom implementation of splitting the dataset into train / test with a fixed random seed and configurable ratios.
+- `train_test_split` — custom implementation of splitting the dataset into train / test with a fixed random seed and shuffle.
 
 The goals of this approach are:
 
@@ -165,12 +165,12 @@ from-scratch-py-vs-cpp-ml/
 
 **Метрики, считаемые через scikit-learn:**
 
-mean_pinball_loss() — средняя pinball-потеря (через sklearn.metrics.mean_pinball_loss для единообразия с baseline).
+mean_pinball_loss() — средняя pinball-потеря (через `sklearn.metrics.mean_pinball_loss` для единообразия с baseline).
 
 **Предобработка:**
 
 - `StandardScaler` — собственная реализация стандартизации признаков (оценка среднего и стандартного отклонения по train-части, применение к train/test).
-- `train_test_split` — собственная реализация разбиения выборки на train / test с фиксированным random seed и настраиваемыми пропорциями.
+- `train_test_split` — собственная реализация разбиения выборки на train / test с фиксированным random seed и shuffle.
 
 
 Цели такого подхода:
