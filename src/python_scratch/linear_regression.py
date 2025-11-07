@@ -47,8 +47,7 @@ class ScratchLinearRegression:
     @staticmethod
     def _transpose(A):
         # A: m x n -> n x m
-        rows, cols = len(A), len(A[0])
-        return [[A[r][c] for r in range(rows)] for c in range(cols)]
+        return [list(row) for row in zip(*A)]
     
     @staticmethod
     def _matmul(A, B):
