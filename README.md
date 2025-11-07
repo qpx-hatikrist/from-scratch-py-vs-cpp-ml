@@ -1,6 +1,6 @@
-# from-scratch-py-vs-cpp-ml
-## EN/RU
-**EN**
+# Comparison of Machine Learning Models: Custom Implementations vs scikit-learn (C++ and Python)
+## EN :uk: / RU :ru:
+**EN :uk:**
 
 A project for experimental comparison of classic machine learning models implemented in three variants:
 
@@ -40,9 +40,8 @@ from-scratch-py-vs-cpp-ml/
 ├── notebooks/            # Jupyter notebooks with experiments and visualizations
 ├── src/                  # Algorithm implementations in C++ and Python
 ├── vendor/               # External / helper code (headers, utilities, etc.)
-├── ll.py                 # Helper script for running experiments (WIP)
 ├── requirements.txt      # Python dependencies
-└── .gitmodules           # Git submodules configuration (if used)
+└── .gitmodules           # Git submodules configuration
 ```
 
 ---
@@ -93,7 +92,7 @@ Evaluation is performed **on the same dataset** (for now we use a single dataset
 
 - **R²** — coefficient of determination;
 - **D²** — a modification of R² (deviance-based score) for assessing prediction quality;
-- **MRSE** — a variation of mean squared error (mean root square error);
+- **RMSE** — a variation of mean squared error (mean root square error);
 - **SMAPE** — symmetric mean absolute percentage error;
 - **RMSLE** — root mean squared logarithmic error;
 - **`mean_pinball_loss()`** — mean pinball loss (computed via `sklearn.metrics.mean_pinball_loss` for consistency with the baseline).
@@ -103,9 +102,12 @@ In addition to point metrics, we use tools to analyze generalization and statist
 - **`learning_curve`** — to build learning curves and analyze how quality depends on the size of the training set;
 - **`permutation_test_score`** — to assess the statistical significance of model quality and check whether the result could be due to chance.
 
-------------------------------
+---
 
-**RU**
+## **RU :ru:**
+
+# Сравнение моделей машинного обучения: свои реализации vs scikit-learn (C++ и Python)
+
 Проект для экспериментального сравнения реализаций классических моделей машинного обучения в трёх вариантах:
 
 1. **Библиотека `scikit-learn`** (baseline);
@@ -144,9 +146,8 @@ from-scratch-py-vs-cpp-ml/
 ├── notebooks/            # Jupyter-ноутбуки с экспериментами и визуализацией
 ├── src/                  # Реализации алгоритмов на C++ и Python
 ├── vendor/               # Внешний/вспомогательный код (заголовки, утилиты и пр.)
-├── ll.py                 # Вспомогательный скрипт запуска / экспериментов (WIP)
 ├── requirements.txt      # Python-зависимости
-└── .gitmodules           # Конфигурация git-подмодулей (если используются)
+└── .gitmodules           # Конфигурация git-подмодулей
 ```
 
 ---
@@ -159,7 +160,7 @@ from-scratch-py-vs-cpp-ml/
 
 - R²  
 - D²  
-- MRSE  
+- RMSE  
 - SMAPE  
 - RMSLE  
 
