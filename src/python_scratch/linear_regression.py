@@ -27,7 +27,8 @@ class ScratchLinearRegression:
         XtX_reg = []
         for i in range(n):
             row = XtXb[i][:]       # копия строки
-            row[i] += lambda_     # добавляем λ к диагональному элементу
+            if i != 0:          # не штрафуем bias
+                row[i] += lambda_     # добавляем λ к диагональному элементу
             XtX_reg.append(row)
 
         self.coef_ = self._solve_linear_system(XtX_reg, Xty)
