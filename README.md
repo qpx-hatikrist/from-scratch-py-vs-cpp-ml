@@ -54,13 +54,12 @@ Within the project we **deliberately implement by hand** both the main metrics a
 
 - R²  
 - D²  
-- MRSE  
+- RMSE  
 - SMAPE  
 - RMSLE  
-
-**Metrics computed via scikit-learn::**
-
-mean_pinball_loss() — mean pinball loss (computed via `sklearn.metrics.mean_pinball_loss` for consistency with the baseline).
+- MAXE
+- MedAE
+- EVS
 
 **Preprocessing:**
 
@@ -95,7 +94,9 @@ Evaluation is performed **on the same dataset** (for now we use a single dataset
 - **RMSE** — a variation of mean squared error (mean root square error);
 - **SMAPE** — symmetric mean absolute percentage error;
 - **RMSLE** — root mean squared logarithmic error;
-- **`mean_pinball_loss()`** — mean pinball loss (computed via `sklearn.metrics.mean_pinball_loss` for consistency with the baseline).
+- **MAXE** — maximum absolute error (the worst mistake the model makes on a single instance);
+- **MedAE** — median absolute error (a typical error, robust to outliers);
+- **EVS** — proportion of the target variable’s variance explained by the model (how well the model explains the target’s variation).
 
 In addition to point metrics, we use tools to analyze generalization and statistical significance:
 
@@ -162,11 +163,10 @@ from-scratch-py-vs-cpp-ml/
 - D²  
 - RMSE  
 - SMAPE  
-- RMSLE  
-
-**Метрики, считаемые через scikit-learn:**
-
-mean_pinball_loss() — средняя pinball-потеря (через `sklearn.metrics.mean_pinball_loss` для единообразия с baseline).
+- RMSLE
+- MAXE
+- MedAE
+- EVS
 
 **Предобработка:**
 
@@ -199,10 +199,12 @@ mean_pinball_loss() — средняя pinball-потеря (через `sklearn
 
 - **R²** — коэффициент детерминации;
 - **D²** — модификация R² (deviance-based score) для оценки качества предсказаний;
-- **MRSE** — вариация средней квадратичной ошибки (mean root square error);
+- **RMSE** — вариация средней квадратичной ошибки (mean root square error);
 - **SMAPE** — symmetric mean absolute percentage error;
 - **RMSLE** — root mean squared logarithmic error;
-- **`mean_pinball_loss()`** — средняя pinball-потеря (выполняется через `sklearn.metrics.mean_pinball_loss` для единообразия с baseline).
+- **MAXE** — максимальная абсолютная ошибка (наихудший промах модели по одному объекту);
+- **MedAE** — медианная абсолютная ошибка (типичная ошибка, устойчива к выбросам);
+- **EVS** — доля дисперсии целевой переменной, объяснённая моделью (насколько хорошо модель объясняет вариацию таргета).
 
 Помимо точечных метрик, мы используем инструменты анализа обобщающей способности и статистической значимости:
 
