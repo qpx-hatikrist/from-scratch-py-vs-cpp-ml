@@ -1,4 +1,6 @@
 import time
+import pandas as pd
+import numpy as np
 
 def timeit(func):
     def wrapper(*args, **kwargs):
@@ -26,6 +28,13 @@ class ScratchLinearRegression:
         
     @timeit    
     def fit(self, X_train, y_train):
+        
+        # приведение к numpy/спискам, чтобы не было KeyError из pandas
+        if isinstance(X_train, (pd.DataFrame, pd.Series)):
+            X_train = X_train.to_numpy()
+        if isinstance(y_train, (pd.Series, pd.DataFrame)):
+            y_train = np.array(y_train)
+            
         #self.coef_, *_ = np.linalg.lstsq(X_train, y_train, rcond=None)
         Xb = self._add_intercept(X_train)
         Xt = self._transpose(Xb)
