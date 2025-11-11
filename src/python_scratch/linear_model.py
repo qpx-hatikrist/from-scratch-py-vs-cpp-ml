@@ -12,13 +12,7 @@ def timeit(func):
     return wrapper
 
 class ScratchLinearRegression:
-    def __init__(self, max_iter=100):
-        if isinstance(max_iter, int) and not isinstance(max_iter, bool):
-            if max_iter < 1:
-                raise ValueError('max_iter must be positive')
-            self.max_iter = max_iter
-        else:
-            raise TypeError('max_iter need to be int type')
+    def __init__(self):
         self.coef_ = None
         
     @timeit    
@@ -145,13 +139,7 @@ class ScratchLinearRegression:
         return w
 
 class ScratchRidge:
-    def __init__(self, max_iter=100, alpha=1):
-        if isinstance(max_iter, int) and not isinstance(max_iter, bool):
-            if max_iter < 1:
-                raise ValueError('max_iter must be positive')
-            self.max_iter = max_iter
-        else:
-            raise TypeError('max_iter need to be int type')
+    def __init__(self, alpha=1):
         self.coef_ = None
         if alpha < 0:
             raise ValueError("alpha must be non-negative")
