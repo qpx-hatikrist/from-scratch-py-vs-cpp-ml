@@ -25,9 +25,9 @@ def scr_train_test_split(
     test_idx = indices[-n_test:]
     train_idx = indices[:-n_test]
 
-    X_train = X.iloc[train_idx]
-    X_test = X.iloc[test_idx]
-    y_train = y.iloc[train_idx]
-    y_test = y.iloc[test_idx]
+    X_train = X.iloc[train_idx].reset_index(drop=True)
+    X_test = X.iloc[test_idx].reset_index(drop=True)
+    y_train = y.iloc[train_idx].reset_index(drop=True)
+    y_test = y.iloc[test_idx].reset_index(drop=True)
 
     return X_train, X_test, y_train, y_test
