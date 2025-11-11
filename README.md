@@ -103,6 +103,17 @@ In addition to point metrics, we use tools to analyze generalization and statist
 - **`learning_curve`** — to build learning curves and analyze how quality depends on the size of the training set;
 - **`permutation_test_score`** — to assess the statistical significance of model quality and check whether the result could be due to chance.
 
+| Stack          | RMSE        | R²       | D²       | MAXE        | MedAE       | EVS      | fit_time (s) | pred_time (s) |
+|----------------|------------:|---------:|---------:|------------:|------------:|---------:|-------------:|--------------:|
+| sklearn        | 21461.048239| 0.928407 | 0.739617 | 158451.5957 | 10961.87213 | 0.92844  | 0.078459     | 0.000679      |
+| Python scratch | 21461.048201| 0.928407 | 0.739617 | 158451.5951 | 10961.87198 | 0.92844  | 39.340560    | 0.050775      |
+| C++ scratch    | *TBD*       | *TBD*    | *TBD*    | *TBD*       | *TBD*       | *TBD*    | *TBD*        | *TBD*         |
+
+The Python scratch implementation matches sklearn in terms of quality (differences are at machine precision level), but is orders of magnitude slower due to pure Python loops. The C++ implementation is planned as a faster low-level backend with the same behavior.
+
+*A more detailed analysis (learning curves, permutation test, metric comparison and implementation details) is available in the notebook `notebooks/linear_regression.ipynb`.*
+
+
 ---
 
 ## **RU :ru:**
@@ -200,8 +211,6 @@ from-scratch-py-vs-cpp-ml/
 - **R²** — коэффициент детерминации;
 - **D²** — модификация R² (deviance-based score) для оценки качества предсказаний;
 - **RMSE** — вариация средней квадратичной ошибки (mean root square error);
-- **SMAPE** — symmetric mean absolute percentage error;
-- **RMSLE** — root mean squared logarithmic error;
 - **MAXE** — максимальная абсолютная ошибка (наихудший промах модели по одному объекту);
 - **MedAE** — медианная абсолютная ошибка (типичная ошибка, устойчива к выбросам);
 - **EVS** — доля дисперсии целевой переменной, объяснённая моделью (насколько хорошо модель объясняет вариацию таргета).
@@ -211,3 +220,12 @@ from-scratch-py-vs-cpp-ml/
 - **`learning_curve`** — для построения кривых обучения и анализа зависимости качества от размера обучающей выборки;
 - **`permutation_test_score`** — для оценки статистической значимости качества модели и проверки, не является ли результат следствием случайности.
 
+| Stack          | RMSE        | R²       | D²       | MAXE        | MedAE       | EVS      | fit_time (s) | pred_time (s) |
+|----------------|------------:|---------:|---------:|------------:|------------:|---------:|-------------:|--------------:|
+| sklearn        | 21461.048239| 0.928407 | 0.739617 | 158451.5957 | 10961.87213 | 0.92844  | 0.078459     | 0.000679      |
+| Python scratch | 21461.048201| 0.928407 | 0.739617 | 158451.5951 | 10961.87198 | 0.92844  | 39.340560    | 0.050775      |
+| C++ scratch    | *TBD*       | *TBD*    | *TBD*    | *TBD*       | *TBD*       | *TBD*    | *TBD*        | *TBD*         |
+
+Python-реализация по качеству совпадает со sklearn (различия на уровне машинной погрешности), но из-за чистых Python-циклов работает на порядки медленнее. Реализация на C++ планируется как более быстрый низкоуровневый backend с тем же поведением.
+
+*Более подробный анализ (кривые обучения, permutation test, сравнение метрик и реализаций) приведён в ноутбуке `notebooks/linear_regression.ipynb`.*
