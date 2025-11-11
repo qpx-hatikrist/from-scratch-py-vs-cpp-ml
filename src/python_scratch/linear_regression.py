@@ -1,3 +1,14 @@
+import time
+
+def timeit(func):
+    def wrapper(*args, **kwargs):
+        start = time.perf_counter()
+        result = func(*args, **kwargs)
+        end = time.perf_counter()
+        print(f"{func.__name__} took {end - start:.6} seconds")
+        return result
+    return wrapper
+
 class ScratchLinearRegression:
     def __init__(self, max_iter=100, solver='analytic'):
         if isinstance(max_iter, int) and not isinstance(max_iter, bool):
@@ -13,7 +24,7 @@ class ScratchLinearRegression:
             raise TypeError('solver can be "analytic"')
         self.coef_ = None
         
-        
+    @timeit    
     def fit(self, X_train, y_train):
         #self.coef_, *_ = np.linalg.lstsq(X_train, y_train, rcond=None)
         Xb = self._add_intercept(X_train)
@@ -34,7 +45,7 @@ class ScratchLinearRegression:
         self.coef_ = self._solve_linear_system(XtX_reg, Xty)
             
         return self.coef_
-        
+    @timeit    
     def predict(self, X_test):
         if self.coef_ is None:
             raise ValueError('model is not fitted')
