@@ -13,7 +13,7 @@ The comparison is based on two main criteria:
 - **model quality** (error / accuracy on the test data);
 - **performance** (training and inference time).
 
-At the moment, **linear regression** is implemented and compared; other models are under development.
+At the moment, **linear regression**, **Ridge**, **Lasso** is implemented and compared; other models are under development.
 
 ---
 
@@ -109,9 +109,37 @@ In addition to point metrics, we use tools to analyze generalization and statist
 | Python scratch | 21461.048201| 0.928407 | 0.739617 | 158451.5951 | 10961.87198 | 0.92844  | 39.340560    | 0.050775      |
 | C++ scratch    | *TBD*       | *TBD*    | *TBD*    | *TBD*       | *TBD*       | *TBD*    | *TBD*        | *TBD*         |
 
-The Python scratch implementation matches sklearn in terms of quality (differences are at machine precision level), but is orders of magnitude slower due to pure Python loops. The C++ implementation is planned as a faster low-level backend with the same behavior.
+**Conclusion (LinearRegression):** `ScratchLinearRegression` matches `sklearn.LinearRegression` in terms of quality (differences are at machine precision level), which means the implementation is mathematically correct. Training time is ~**×500** slower and prediction time is ~**×70** slower due to pure Python loops.
 
 *A more detailed analysis (learning curves, permutation test, metric comparison and implementation details) is available in the notebook `notebooks/linear_regression.ipynb`.*
+
+---
+
+### Ridge
+
+| Impl           | RMSE      | R²       | D²       | MAXE        | MedAE       | EVS      | fit_time (s) | pred_time (s) |
+|----------------|----------:|---------:|---------:|------------:|------------:|---------:|-------------:|--------------:|
+| sklearn        | 21162.30  | 0.930386 | 0.744151 | 158372.79   | 10550.75    | 0.930414 | 0.025        | 0.002         |
+| Python scratch | 21162.30  | 0.930386 | 0.744151 | 158372.79   | 10550.75    | 0.930414 | 38.08        | 0.051         |
+| C++ scratch    | *TBD*     | *TBD*    | *TBD*    | *TBD*       | *TBD*       | *TBD*    | *TBD*        | *TBD*         |
+
+**Conclusion (Ridge):** my implementation exactly matches `sklearn.Ridge` across all metrics (differences are within machine precision), but pure Python training is ~**×1500** slower and inference is ~**×25** slower. Mathematically it is correct, but in terms of speed it is an educational/reference implementation.
+
+*A more detailed analysis (learning curves, permutation test, metric and implementation comparison) is provided in the notebook `notebooks/linear_regression.ipynb`.*
+
+---
+
+### Lasso
+
+| Impl           | RMSE      | R²       | D²       | MAXE        | MedAE       | EVS      | fit_time (s) | pred_time (s) |
+|----------------|----------:|---------:|---------:|------------:|------------:|---------:|-------------:|--------------:|
+| sklearn        | 20929.67  | 0.931908 | 0.752938 | 160524.52   | 10362.82    | 0.931929 | 0.089        | 0.00093       |
+| Python scratch | 20928.15  | 0.931918 | 0.752961 | 160520.72   | 10361.59    | 0.931939 | 226.95       | 0.10144       |
+| C++ scratch    | *TBD*     | *TBD*    | *TBD*    | *TBD*       | *TBD*       | *TBD*    | *TBD*        | *TBD*         |
+
+**Conclusion (Lasso):** `ScratchLasso` produces almost the same RMSE, R², D², EVS, MAXE and MedAE as `sklearn.Lasso` (differences at the 3rd–4th decimal place), which means the implementation is correct. The cost is time: training is ~**×2500** slower and prediction is ~**×100** slower.
+
+*A more detailed analysis (learning curves, permutation test, metric and implementation comparison) is provided in the notebook `notebooks/linear_regression.ipynb`.*
 
 
 ---
@@ -131,7 +159,7 @@ The Python scratch implementation matches sklearn in terms of quality (differenc
 - **качество модели** (ошибка / точность на тестовых данных);
 - **производительность** (время обучения и предсказания).
 
-В настоящий момент реализована и сравнивается **линейная регрессия**; остальные модели находятся в разработке.
+В настоящий момент реализована и сравнивается **линейная регрессия**, **Ridge**, **Lasso**; остальные модели находятся в разработке.
 
 ---
 
@@ -226,6 +254,34 @@ from-scratch-py-vs-cpp-ml/
 | Python scratch | 21461.048201| 0.928407 | 0.739617 | 158451.5951 | 10961.87198 | 0.92844  | 39.340560    | 0.050775      |
 | C++ scratch    | *TBD*       | *TBD*    | *TBD*    | *TBD*       | *TBD*       | *TBD*    | *TBD*        | *TBD*         |
 
-Python-реализация по качеству совпадает со sklearn (различия на уровне машинной погрешности), но из-за чистых Python-циклов работает на порядки медленнее. Реализация на C++ планируется как более быстрый низкоуровневый backend с тем же поведением.
+**Вывод (LinearRegression):** `ScratchLinearRegression` по качеству совпадает с `sklearn.LinearRegression` (различия на уровне машинной точности), что означает корректность реализации с математической точки зрения. Обучение примерно в **×500** раз медленнее, а предсказание — в **×70** раз медленнее из-за циклов на чистом Python.
+
+*Более подробный анализ (кривые обучения, permutation test, сравнение метрик и реализаций) приведён в ноутбуке `notebooks/linear_regression.ipynb`.*
+
+---
+
+### Ridge
+
+| Impl           | RMSE      | R²       | D²       | MAXE        | MedAE       | EVS      | fit_time (s) | pred_time (s) |
+|----------------|----------:|---------:|---------:|------------:|------------:|---------:|-------------:|--------------:|
+| sklearn        | 21162.30  | 0.930386 | 0.744151 | 158372.79   | 10550.75    | 0.930414 | 0.025        | 0.002         |
+| Python scratch | 21162.30  | 0.930386 | 0.744151 | 158372.79   | 10550.75    | 0.930414 | 38.08        | 0.051         |
+| C++ scratch    | *TBD*     | *TBD*    | *TBD*    | *TBD*       | *TBD*       | *TBD*    | *TBD*        | *TBD*         |
+
+**Вывод (Ridge):** моя реализация полностью совпадает со `sklearn.Ridge` по всем метрикам (разница в пределах машинной точности), но обучение в чистом Python ~**×1500** медленнее, а предсказание ~**×25** медленнее. Математика корректна, но по скорости это чисто учебная реализация.
+
+*Более подробный анализ (кривые обучения, permutation test, сравнение метрик и реализаций) приведён в ноутбуке `notebooks/linear_regression.ipynb`.*
+
+---
+
+### Lasso
+
+| Impl           | RMSE      | R²       | D²       | MAXE        | MedAE       | EVS      | fit_time (s) | pred_time (s) |
+|----------------|----------:|---------:|---------:|------------:|------------:|---------:|-------------:|--------------:|
+| sklearn        | 20929.67  | 0.931908 | 0.752938 | 160524.52   | 10362.82    | 0.931929 | 0.089        | 0.00093       |
+| Python scratch | 20928.15  | 0.931918 | 0.752961 | 160520.72   | 10361.59    | 0.931939 | 226.95       | 0.10144       |
+| C++ scratch    | *TBD*     | *TBD*    | *TBD*    | *TBD*       | *TBD*       | *TBD*    | *TBD*        | *TBD*         |
+
+**Вывод (Lasso):** `ScratchLasso` даёт почти те же значения RMSE, R², D², EVS, MAXE и MedAE, что и `sklearn.Lasso` (расхождения на 3–4 знак), то есть реализован корректно. Цена — время: обучение ~**×2500** медленнее, предсказание ~**×100** медленнее.
 
 *Более подробный анализ (кривые обучения, permutation test, сравнение метрик и реализаций) приведён в ноутбуке `notebooks/linear_regression.ipynb`.*

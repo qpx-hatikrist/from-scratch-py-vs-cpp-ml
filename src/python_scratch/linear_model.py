@@ -1,6 +1,7 @@
 import time
 import pandas as pd
 import numpy as np
+from tqdm import tqdm
 
 def timeit(func):
     def wrapper(*args, **kwargs):
@@ -138,6 +139,8 @@ class ScratchLinearRegression:
 
         return w
 
+'--------------------------------------------------RIDGE--------------------------------------------------'
+
 class ScratchRidge:
     def __init__(self, alpha=1):
         self.coef_ = None
@@ -254,3 +257,89 @@ class ScratchRidge:
             w[i] = s
 
         return w
+    
+'--------------------------------------------------LASSO--------------------------------------------------'
+class ScratchLasso:
+    def __init__(self, alpha=1.0, max_iter=100, tol=1e-4):
+        self._coef = None
+        self._intercept = None
+        self.alpha = alpha
+        self.max_iter = max_iter
+        self.tol = tol
+        
+    def fit(self, X, y):
+        n = len(X)
+        p = len(X[0])
+        self.coef = [0.0] * p
+        X_mean = [0.0] * p
+
+        for j in range(p):
+            s = 0.0
+            for i in range(n):
+                s += X[i][j]
+            X_mean[j] = s / n
+
+        y_mean = sum(y_i for y_i in y) / n
+
+        Xc = [[0.0] * p for _ in range(n)]
+        for i in range(n):
+            for j in range(p):
+                Xc[i][j] = X[i][j] - X_mean[j]
+
+        yc = [float(y_i - y_mean) for y_i in y]
+
+        xx_sum = [0.0] * p
+        
+        for i in range(n):
+            for j in range(p):
+                xx_sum[j] += Xc[i][j] ** 2
+
+        residual = [float(y_i) for y_i in yc]
+
+        alpha_eff = self.alpha * n
+
+        for _ in tqdm(range(self.max_iter)):
+            max_delta = 0.0
+
+            for j in range(p):
+                if xx_sum[j] == 0:
+                    continue
+                
+                rho_j = 0.0
+                for i in range(n):
+                    rho_j += Xc[i][j] * (residual[i] + Xc[i][j] * self.coef[j])
+
+                # sign (soft-threshold)
+                if rho_j < -alpha_eff:
+                    w_new = (rho_j + alpha_eff) / xx_sum[j]
+                elif rho_j > alpha_eff:
+                    w_new = (rho_j - alpha_eff) / xx_sum[j]
+                else:
+                    w_new = 0.0
+
+                delta = w_new - self.coef[j]
+                if delta != 0.0:
+
+                    for i in range(n):
+                        residual[i] -= Xc[i][j] * delta
+                    self.coef[j] = w_new
+                    if abs(delta) > max_delta:
+                        max_delta = abs(delta)
+
+            if max_delta < self.tol:
+                break
+
+        self._coef = self.coef[:]
+        self._intercept = y_mean - sum(X_mean[j] * self._coef[j]
+                                       for j in range(p))
+
+        return self
+    
+    def predict(self, X):
+        y_pred = []
+        for row in X:
+            s = self._intercept
+            for x_j, w_j in zip(row, self._coef):
+                s += x_j * w_j
+            y_pred.append(s)
+        return y_pred         
