@@ -115,7 +115,7 @@ In addition to point metrics, we use tools to analyze generalization and statist
 
 **Conclusion (LinearRegression):** `ScratchLinearRegression` matches `sklearn.LinearRegression` in terms of quality (differences are at machine precision level), which means the implementation is mathematically correct. Training time is ~**×500** slower and prediction time is ~**×70** slower due to pure Python loops.
 
-*A more detailed analysis (learning curves, permutation test, metric comparison and implementation details) is available in the notebook `notebooks/linear_regression.ipynb`.*
+*A more detailed analysis (learning curves, permutation test, metric comparison and implementation details) is available in the notebook [`notebooks/linear_regression.ipynb`](notebooks/linear_regression.ipynb).*
 
 ---
 
@@ -129,7 +129,7 @@ In addition to point metrics, we use tools to analyze generalization and statist
 
 **Conclusion (Ridge):** my implementation exactly matches `sklearn.Ridge` across all metrics (differences are within machine precision), but pure Python training is ~**×1500** slower and inference is ~**×25** slower. Mathematically it is correct, but in terms of speed it is an educational/reference implementation.
 
-*A more detailed analysis (learning curves, permutation test, metric and implementation comparison) is provided in the notebook `notebooks/linear_regression.ipynb`.*
+*A more detailed analysis (learning curves, permutation test, metric and implementation comparison) is provided in the notebook [`notebooks/linear_regression.ipynb`](notebooks/linear_regression.ipynb).*
 
 ---
 
@@ -143,7 +143,7 @@ In addition to point metrics, we use tools to analyze generalization and statist
 
 **Conclusion (Lasso):** `ScratchLasso` produces almost the same RMSE, R², D², EVS, MAXE and MedAE as `sklearn.Lasso` (differences at the 3rd–4th decimal place), which means the implementation is correct. The cost is time: training is ~**×2500** slower and prediction is ~**×100** slower.
 
-*A more detailed analysis (learning curves, permutation test, metric and implementation comparison) is provided in the notebook `notebooks/linear_regression.ipynb`.*
+*A more detailed analysis (learning curves, permutation test, metric and implementation comparison) is provided in the notebook [`notebooks/linear_regression.ipynb`](notebooks/linear_regression.ipynb).*
 
 
 ---
@@ -260,7 +260,7 @@ from-scratch-py-vs-cpp-ml/
 
 **Вывод (LinearRegression):** `ScratchLinearRegression` по качеству совпадает с `sklearn.LinearRegression` (различия на уровне машинной точности), что означает корректность реализации с математической точки зрения. Обучение примерно в **×500** раз медленнее, а предсказание — в **×70** раз медленнее из-за циклов на чистом Python.
 
-*Более подробный анализ (кривые обучения, permutation test, сравнение метрик и реализаций) приведён в ноутбуке `notebooks/linear_regression.ipynb`.*
+*Более подробный анализ (кривые обучения, permutation test, сравнение метрик и реализаций) приведён в ноутбуке [`notebooks/linear_regression.ipynb`](notebooks/linear_regression.ipynb).*
 
 ---
 
@@ -274,7 +274,7 @@ from-scratch-py-vs-cpp-ml/
 
 **Вывод (Ridge):** моя реализация полностью совпадает со `sklearn.Ridge` по всем метрикам (разница в пределах машинной точности), но обучение в чистом Python ~**×1500** медленнее, а предсказание ~**×25** медленнее. Математика корректна, но по скорости это чисто учебная реализация.
 
-*Более подробный анализ (кривые обучения, permutation test, сравнение метрик и реализаций) приведён в ноутбуке `notebooks/linear_regression.ipynb`.*
+*Более подробный анализ (кривые обучения, permutation test, сравнение метрик и реализаций) приведён в ноутбуке [`notebooks/linear_regression.ipynb`](notebooks/linear_regression.ipynb).*
 
 ---
 
@@ -288,4 +288,4 @@ from-scratch-py-vs-cpp-ml/
 
 **Вывод (Lasso):** `ScratchLasso` даёт почти те же значения RMSE, R², D², EVS, MAXE и MedAE, что и `sklearn.Lasso` (расхождения на 3–4 знак), то есть реализован корректно. Цена — время: обучение ~**×2500** медленнее, предсказание ~**×100** медленнее.
 
-*Более подробный анализ (кривые обучения, permutation test, сравнение метрик и реализаций) приведён в ноутбуке `notebooks/linear_regression.ipynb`.*
+*Более подробный анализ (кривые обучения, permutation test, сравнение метрик и реализаций) приведён в ноутбуке [`notebooks/linear_regression.ipynb`](notebooks/linear_regression.ipynb).*
