@@ -1,5 +1,9 @@
 # Comparison of Machine Learning Models: Custom Implementations vs scikit-learn (C++ and Python)
+
+[🇬🇧 English](README.md) | [🇷🇺 Русский](README_ru.md)
+
 ## EN :uk: / RU :ru:
+
 **EN :uk:**
 
 A project for experimental comparison of classic machine learning models implemented in three variants:
