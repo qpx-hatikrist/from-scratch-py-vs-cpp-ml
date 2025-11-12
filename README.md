@@ -103,11 +103,11 @@ In addition to point metrics, we use tools to analyze generalization and statist
 - **`learning_curve`** — to build learning curves and analyze how quality depends on the size of the training set;
 - **`permutation_test_score`** — to assess the statistical significance of model quality and check whether the result could be due to chance.
 
-| Stack          | RMSE        | R²       | D²       | MAXE        | MedAE       | EVS      | fit_time (s) | pred_time (s) |
-|----------------|------------:|---------:|---------:|------------:|------------:|---------:|-------------:|--------------:|
-| sklearn        | 21461.048239| 0.928407 | 0.739617 | 158451.5957 | 10961.87213 | 0.92844  | 0.078459     | 0.000679      |
-| Python scratch | 21461.048201| 0.928407 | 0.739617 | 158451.5951 | 10961.87198 | 0.92844  | 39.340560    | 0.050775      |
-| C++ scratch    | *TBD*       | *TBD*    | *TBD*    | *TBD*       | *TBD*       | *TBD*    | *TBD*        | *TBD*         |
+| Stack          | RMSE      | R²       | D²       | MAXE        | MedAE       | EVS      | fit_time (s) | pred_time (s) |
+|----------------|----------:|---------:|---------:|------------:|------------:|---------:|-------------:|--------------:|
+| sklearn        | 21461.048 | 0.928407 | 0.739617 | 158451.5957 | 10961.87213 | 0.92844  | 0.078459     | 0.000679      |
+| Python scratch | 21461.048 | 0.928407 | 0.739617 | 158451.5951 | 10961.87198 | 0.92844  | 39.340560    | 0.050775      |
+| C++ scratch    | *TBD*     | *TBD*    | *TBD*    | *TBD*       | *TBD*       | *TBD*    | *TBD*        | *TBD*         |
 
 **Conclusion (LinearRegression):** `ScratchLinearRegression` matches `sklearn.LinearRegression` in terms of quality (differences are at machine precision level), which means the implementation is mathematically correct. Training time is ~**×500** slower and prediction time is ~**×70** slower due to pure Python loops.
 
@@ -248,11 +248,11 @@ from-scratch-py-vs-cpp-ml/
 - **`learning_curve`** — для построения кривых обучения и анализа зависимости качества от размера обучающей выборки;
 - **`permutation_test_score`** — для оценки статистической значимости качества модели и проверки, не является ли результат следствием случайности.
 
-| Stack          | RMSE        | R²       | D²       | MAXE        | MedAE       | EVS      | fit_time (s) | pred_time (s) |
-|----------------|------------:|---------:|---------:|------------:|------------:|---------:|-------------:|--------------:|
-| sklearn        | 21461.048239| 0.928407 | 0.739617 | 158451.5957 | 10961.87213 | 0.92844  | 0.078459     | 0.000679      |
-| Python scratch | 21461.048201| 0.928407 | 0.739617 | 158451.5951 | 10961.87198 | 0.92844  | 39.340560    | 0.050775      |
-| C++ scratch    | *TBD*       | *TBD*    | *TBD*    | *TBD*       | *TBD*       | *TBD*    | *TBD*        | *TBD*         |
+| Stack          | RMSE      | R²       | D²       | MAXE        | MedAE       | EVS      | fit_time (s) | pred_time (s) |
+|----------------|----------:|---------:|---------:|------------:|------------:|---------:|-------------:|--------------:|
+| sklearn        | 21461.048 | 0.928407 | 0.739617 | 158451.5957 | 10961.87213 | 0.92844  | 0.0784       | 0.000679      |
+| Python scratch | 21461.048 | 0.928407 | 0.739617 | 158451.5951 | 10961.87198 | 0.92844  | 39.340       | 0.050775      |
+| C++ scratch    | *TBD*     | *TBD*    | *TBD*    | *TBD*       | *TBD*       | *TBD*    | *TBD*        | *TBD*         |
 
 **Вывод (LinearRegression):** `ScratchLinearRegression` по качеству совпадает с `sklearn.LinearRegression` (различия на уровне машинной точности), что означает корректность реализации с математической точки зрения. Обучение примерно в **×500** раз медленнее, а предсказание — в **×70** раз медленнее из-за циклов на чистом Python.
 
