@@ -2,6 +2,7 @@ import time
 import pandas as pd
 import numpy as np
 from tqdm import tqdm
+from typing import Literal
 
 def timeit(func):
     def wrapper(*args, **kwargs):
@@ -139,7 +140,7 @@ class ScratchLinearRegression:
 
         return w
 
-'--------------------------------------------------RIDGE--------------------------------------------------'
+'''--------------------------------------------------RIDGE--------------------------------------------------'''
 
 class ScratchRidge:
     def __init__(self, alpha=1):
@@ -258,7 +259,7 @@ class ScratchRidge:
 
         return w
     
-'--------------------------------------------------LASSO--------------------------------------------------'
+'''--------------------------------------------------LASSO--------------------------------------------------'''
 class ScratchLasso:
     def __init__(self, alpha=1.0, max_iter=100, tol=1e-4):
         self._coef = None
@@ -343,3 +344,111 @@ class ScratchLasso:
                 s += x_j * w_j
             y_pred.append(s)
         return y_pred         
+    
+'''---------------------------------------------------SGD---------------------------------------------------'''
+
+class ScratchSGDRegressor:
+    def __init__(self, lr=1e-4, max_iter=300, mode: Literal['batch', 'sgd', 'minibatch'] ='sgd', 
+                 batch_size=None, shuffle=True, random_state=None):
+        self.lr = lr
+        self.max_iter = max_iter
+        if not mode in ('batch', 'sgd', 'minibatch'):
+            raise ValueError('mode must be "("batch", "sgd", "minibatch")')
+        self.mode = mode
+        if mode == 'minibatch':
+            self.batch_size = batch_size
+        else:
+            self.batch_size = None
+        self.shuffle = shuffle
+        self.random_state = random_state
+        self.coef_ = None
+        self.intercept_ = 0.0
+        
+    def fit(self, X, y):
+        if isinstance(X, (pd.DataFrame, pd.Series)):
+            X = X.to_numpy()
+        if isinstance(y, (pd.Series, pd.DataFrame)):
+            y = np.array(y)
+        
+        n = len(X)                  # Кол-во объектов
+        p = len(X[0])               # Кол-во признаков
+        w = [0.0] * p
+        
+        rng = np.random.RandomState(self.random_state)
+        
+        for epoch in tqdm(range(self.max_iter)):
+            indices = np.arange(n)
+            if self.shuffle:
+                rng.shuffle(indices)
+
+            if self.mode == 'sgd':
+                for i in indices:
+                    x_i = X[i]
+                    y_i = y[i]
+
+                    y_pred_i = sum(x_j * w_j for x_j, w_j in zip(x_i, w)) + self.intercept_
+                    error = y_pred_i - y_i
+                    for j in range(p):
+                        grad_j = error * x_i[j]
+                        w[j] -= self.lr * grad_j
+                        
+                    self.intercept_ -= self.lr * error  # обновляем bias
+                    
+                        # ----- batch GD -----
+            elif self.mode == 'batch':
+                grad_w = [0.0] * p
+                grad_b = 0.0
+                
+                for i in indices:
+                    x_i = X[i]
+                    y_i = y[i]
+
+                    y_pred_i = sum(x_j * w_j for x_j, w_j in zip(x_i, w)) + self.intercept_
+                    error = y_pred_i - y_i
+                    for j in range(p):
+                        grad_w[j] += error * x_i[j]
+                    grad_b += error     
+                    
+                # ----усреднение по батчу-----
+                for j in range(p):
+                    w[j] -= self.lr * (grad_w[j] / n)
+                self.intercept_ -= self.lr * (grad_b / n)
+                
+                        # ----- mini-batch GD -----
+            elif self.mode == 'minibatch':
+                if self.batch_size is None:
+                    raise ValueError("batch_size must be set for mode='minibatch'")
+
+                for start in range(0, n, self.batch_size):
+                    end = min(start + self.batch_size, n)
+                    batch_idx = indices[start:end]
+                    m = len(batch_idx)
+
+                    grad_w = [0.0] * p
+                    grad_b = 0.0
+
+                    for i in batch_idx:
+                        x_i = X[i]
+                        y_i = y[i]
+
+                        y_pred_i = sum(x_j * w_j for x_j, w_j in zip(x_i, w)) + self.intercept_
+                        error = y_pred_i - y_i
+
+                        for j in range(p):
+                            grad_w[j] += error * x_i[j]
+                        grad_b += error
+
+                    # ---усреднение----
+                    for j in range(p):
+                        w[j] -= self.lr * (grad_w[j] / m)
+                    self.intercept_ -= self.lr * (grad_b / m)
+                               
+        self.coef_ = w
+        
+    def predict(self, X):
+        if isinstance(X, (pd.DataFrame, pd.Series)):
+            X = X.to_numpy()
+        y_pred = []
+        for row in X:
+            y_pred.append(sum(x_j * w_j for x_j, w_j in zip(row, self.coef_)) + self.intercept_)
+        return y_pred

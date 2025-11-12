@@ -1,4 +1,4 @@
-class ScratchStandartScaler:
+class ScratchStandardScaler:
     def __init__(self):
         self.__mean = None
         self.__std = None
