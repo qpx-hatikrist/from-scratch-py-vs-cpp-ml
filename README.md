@@ -105,8 +105,8 @@ In addition to point metrics, we use tools to analyze generalization and statist
 
 | Stack          | RMSE      | R²       | D²       | MAXE        | MedAE       | EVS      | fit_time (s) | pred_time (s) |
 |----------------|----------:|---------:|---------:|------------:|------------:|---------:|-------------:|--------------:|
-| sklearn        | 21461.048 | 0.928407 | 0.739617 | 158451.5957 | 10961.87213 | 0.92844  | 0.078459     | 0.000679      |
-| Python scratch | 21461.048 | 0.928407 | 0.739617 | 158451.5951 | 10961.87198 | 0.92844  | 39.340560    | 0.050775      |
+| sklearn        | 21461.048 | 0.928407 | 0.7396   | 158451.5957 | 10961.8721  | 0.92844  | 0.078459     | 0.000679      |
+| Python scratch | 21461.048 | 0.928407 | 0.7396   | 158451.5951 | 10961.8719  | 0.92844  | 39.34056     | 0.050775      |
 | C++ scratch    | *TBD*     | *TBD*    | *TBD*    | *TBD*       | *TBD*       | *TBD*    | *TBD*        | *TBD*         |
 
 **Conclusion (LinearRegression):** `ScratchLinearRegression` matches `sklearn.LinearRegression` in terms of quality (differences are at machine precision level), which means the implementation is mathematically correct. Training time is ~**×500** slower and prediction time is ~**×70** slower due to pure Python loops.
